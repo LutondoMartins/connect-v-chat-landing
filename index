@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect-V - Chat Open-Source</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(10px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-fadeIn {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .animate-slideUp {
+            animation: slideUp 0.6s ease-out forwards;
+        }
+
+        .animate-pulse-custom {
+            animation: pulse 2s infinite;
+        }
+
+        .bg-geometric {
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Navbar -->
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 group cursor-pointer">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-2 group-hover:scale-110 transition-all duration-300">
+                        <i class="fas fa-comments text-white text-xl"></i>
+                    </div>
+                    <span class="bg-gradient-to-r from-blue-100 to-purple-100 bg-clip-text text-transparent font-bold text-2xl">Connect-V</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-white hover:text-blue-200 font-medium">Home</a>
+                    <a href="#features" class="nav-link text-white hover:text-blue-200 font-medium">Funcionalidades</a>
+                    <a href="#contribute" class="nav-link text-white hover:text-blue-200 font-medium">Contribuir</a>
+                    <a href="#about" class="nav-link text-white hover:text-blue-200 font-medium">Sobre</a>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="https://github.com/lutondomartins/connect-v-chat.git" target="_blank" 
+                       class="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-lg">
+                        <i class="fab fa-github mr-2"></i>Ver no GitHub
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-white text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="mobile-menu md:hidden fixed inset-0 bg-gradient-to-r from-blue-500 to-purple-600 z-50">
+                <div class="flex flex-col h-full">
+                    <div class="flex justify-between items-center p-6">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-white rounded-lg p-2">
+                                <i class="fas fa-comments text-blue-500 text-xl"></i>
+                            </div>
+                            <span class="text-white font-bold text-2xl">Connect-V</span>
+                        </div>
+                        <button id="mobile-menu-close" class="text-white text-2xl">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="flex flex-col space-y-6 px-6 py-8">
+                        <a href="#home" class="text-white text-xl font-medium border-b border-white/20 pb-4">Home</a>
+                        <a href="#features" class="text-white text-xl font-medium border-b border-white/20 pb-4">Funcionalidades</a>
+                        <a href="#contribute" class="text-white text-xl font-medium border-b border-white/20 pb-4">Contribuir</a>
+                        <a href="#about" class="text-white text-xl font-medium border-b border-white/20 pb-4">Sobre</a>
+                        <a href="https://github.com/lutondomartins/connect-v-chat.git" target="_blank" 
+                           class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold text-center mt-8">
+                            <i class="fab fa-github mr-2"></i>Ver no GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="bg-gradient-to-r from-blue-500 to-purple-600 bg-geometric text-white py-20 min-h-screen flex items-center">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-5xl md:text-6xl font-bold mb-6 animate-fadeIn">
+                            Connect-V: O Chat <span class="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">Open-Source</span> do Futuro
+                        </h1>
+                        <p class="text-xl md:text-2xl mb-8 opacity-90 animate-fadeIn" style="animation-delay: 0.2s;">
+                            Um chat em desenvolvimento para conectar pessoas. <br>
+                            <span class="font-semibold text-yellow-300">Contribua no GitHub!</span>
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 animate-fadeIn" style="animation-delay: 0.4s;">
+                            <a href="https://github.com/lutondomartins/connect-v-chat.git" target="_blank" 
+                               class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-xl flex items-center justify-center">
+                                <i class="fab fa-github mr-3 text-xl"></i>Explorar no GitHub
+                            </a>
+                            <a href="#features" 
+                               class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 flex items-center justify-center">
+                                <i class="fas fa-rocket mr-3"></i>Ver Funcionalidades
+                            </a>
+                        </div>
+                    </div>
+                    <div class="text-center animate-fadeIn p-5 flex justify-center" style="animation-delay: 0.6s;">
+         
+                            <div class="relative">
+                                <div class="w-80 h-96 bg-white rounded-3xl shadow-2xl p-6 transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                                    <div class="h-full bg-gradient-to-b from-gray-50 to-gray-100 rounded-2xl p-4 flex flex-col">
+                                        <!-- Mock Chat Interface -->
+                                        <div class="flex items-center mb-4 pb-4 border-b border-gray-200">
+                                            <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mr-3">
+                                                <i class="fas fa-user text-white text-xs"></i>
+                                            </div>
+                                            <span class="text-gray-800 font-semibold">Chat Demo</span>
+                                        </div>
+                                        
+                                        <div class="flex-1 space-y-3">
+                                            <div class="bg-blue-500 text-white p-3 rounded-lg rounded-bl-none ml-8">
+                                                <p class="text-sm">Olá! Como você está?</p>
+                                            </div>
+                                            <div class="bg-gray-200 text-gray-800 p-3 rounded-lg rounded-br-none mr-8">
+                                                <p class="text-sm">Tudo bem! E você?</p>
+                                            </div>
+                                            <div class="bg-blue-500 text-white p-3 rounded-lg rounded-bl-none ml-8">
+                                                <p class="text-sm">Ótimo! 😊</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                        <span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Funcionalidades</span>
+                        <span class="text-gray-800">Planejadas</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                        Descubra o que estamos construindo para revolucionar a comunicação
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="feature-card bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-comments text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Mensagens em Tempo Real</h3>
+                        <p class="text-gray-600 text-center mb-4">Converse instantaneamente com amigos e familiares.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="feature-card bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gradient-to-r from-green-500 to-blue-500 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-users text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Chats de Grupo</h3>
+                        <p class="text-gray-600 text-center mb-4">Reúna amigos em grupos dinâmicos e divertidos.</p>
+                        <div class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium text-center">
+                            <i class="fas fa-hammer mr-1"></i>Em Desenvolvimento
+                        </div>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="feature-card bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gradient-to-r from-pink-500 to-red-500 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-face-smile text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Reações com Emojis</h3>
+                        <p class="text-gray-600 text-center mb-4">Expresse-se com 👍, ❤️ e muito mais.</p>
+                    </div>
+
+                    <!-- Feature 4 -->
+                    <div class="feature-card bg-white rounded-xl p-8 shadow-lg border border-gray-100">
+                        <div class="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full w-16 h-16 flex items-center justify-center mb-6 mx-auto">
+                            <i class="fas fa-moon text-white text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Temas Claro/Escuro</h3>
+                        <p class="text-gray-600 text-center mb-4">Personalize sua experiência visual.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contribute Section -->
+        <section id="contribute" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Contribua neste <span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Open-Source</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-12 leading-relaxed">
+                        Connect-V é open-source! Junte-se à nossa comunidade, reporte bugs, sugira melhorias ou adicione novas funcionalidades. Sua contribuição faz toda a diferença!
+                    </p>
+                    
+                    <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-3xl p-12 mb-12">
+                        <div class="mb-8">
+                            <i class="fab fa-github text-6xl text-gray-700 mb-6 animate-pulse-custom"></i>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-8 mb-8">
+                            <div class="text-center">
+                                <i class="fas fa-code text-3xl text-blue-500 mb-4"></i>
+                                <h3 class="font-bold text-gray-800 mb-2">Desenvolver</h3>
+                                <p class="text-gray-600">Adicione funcionalidades e melhore o código</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-bug text-3xl text-red-500 mb-4"></i>
+                                <h3 class="font-bold text-gray-800 mb-2">Reportar Bugs</h3>
+                                <p class="text-gray-600">Ajude-nos a encontrar e corrigir problemas</p>
+                            </div>
+                            <div class="text-center">
+                                <i class="fas fa-lightbulb text-3xl text-yellow-500 mb-4"></i>
+                                <h3 class="font-bold text-gray-800 mb-2">Sugerir Ideias</h3>
+                                <p class="text-gray-600">Compartilhe suas ideias inovadoras</p>
+                            </div>
+                        </div>
+                        <a href="https://github.com/lutondomartins/connect-v-chat.git" target="_blank" 
+                           class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg hover:scale-105 transition-all duration-300 shadow-xl inline-flex items-center">
+                            <i class="fab fa-github mr-3 text-xl"></i>Contribuir no GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+                        Sobre o <span class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Connect-V</span>
+                    </h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="text-left">
+                            <p class="text-xl text-gray-600 mb-6 leading-relaxed">
+                                Connect-V é um projeto de chat moderno em construção, projetado para ser simples, poderoso e completamente open-source. Nossa missão é criar uma plataforma de comunicação que coloca a privacidade e a experiência do usuário em primeiro lugar.
+                            </p>
+                            <p class="text-lg text-gray-600 mb-8">
+                                <span class="font-semibold text-blue-600">Ainda em desenvolvimento</span>, mas com grandes planos! Queremos revolucionar a forma como as pessoas se conectam online.
+                            </p>
+                            
+                            <div class="space-y-4">
+                                <div class="flex items-center">
+                                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                                    <span class="text-gray-700">100% Open-Source</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-shield-alt text-blue-500 mr-3"></i>
+                                    <span class="text-gray-700">Focado em Privacidade</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <i class="fas fa-rocket text-purple-500 mr-3"></i>
+                                    <span class="text-gray-700">Interface Moderna</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl p-8 text-white">
+                                <i class="fas fa-comments text-6xl mb-6"></i>
+                                <h3 class="text-2xl font-bold mb-4">Em Desenvolvimento</h3>
+                                <p class="text-lg opacity-90">
+                                    Acompanhe nosso progresso e seja parte dessa jornada incrível!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-100 border-t-4 border-gradient-to-r from-blue-500 to-purple-600">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Logo & Description -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg p-2">
+                            <i class="fas fa-comments text-white text-xl"></i>
+                        </div>
+                        <span class="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent font-bold text-2xl">Connect-V</span>
+                    </div>
+                    <p class="text-gray-300 mb-6 max-w-md">
+                        O chat open-source do futuro. Conectando pessoas com tecnologia moderna e transparente.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/lutondomartins/" target="_blank" 
+                           class="text-gray-400 hover:text-white hover:rotate-12 transition-all duration-300 text-2xl">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="mailto:lutondomartinsdev@gmail.com" 
+                           class="text-gray-400 hover:text-white hover:rotate-12 transition-all duration-300 text-2xl">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://facebook.com/profile.php?id=61577245288372" 
+                           class="text-gray-400 hover:text-white hover:rotate-12 transition-all duration-300 text-2xl">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Links Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition-colors">Funcionalidades</a></li>
+                        <li><a href="#contribute" class="text-gray-400 hover:text-white transition-colors">Contribuir</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">Sobre</a></li>
+                    </ul>
+                </div>
+
+                <!-- Project Info -->
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Projeto</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/lutondomartins/connect-v-chat.git" target="_blank" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+                        <li><span class="text-gray-400">Status: Em Desenvolvimento</span></li>
+                        <li><span class="text-gray-400">Licença: Open-Source</span></li>
+                        <li><span class="text-gray-400">Versão: Beta</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400">
+                    © 2025 Connect-V. Open-Source desenvolvido pela VOID 
+                    <span class="text-red-400">💙</span>
+                    <i class="fas fa-comments text-blue-400 ml-2"></i>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+        });
+
+        // Close mobile menu when clicking on links
+        const mobileLinks = mobileMenu.querySelectorAll('a[href^="#"]');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards for animation
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
